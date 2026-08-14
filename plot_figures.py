@@ -5,17 +5,21 @@ import json
 from pathlib import Path
 
 # ---------------------------------------------------------
-# 配置路径：自动推导，统一到 paper 目录下
+# Public reproducibility repo paths
 # ---------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parent
-PAPER_DIR = PROJECT_ROOT / "paper"
-FIG_DIR = PAPER_DIR / "figures"
+RESULTS_DIR = PROJECT_ROOT / "results"
+FIG_DIR = PROJECT_ROOT / "figures"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-# 允许通过环境变量注入结果文件路径，默认为 strict_result.json
-RESULT_PATH = Path(os.environ.get("RES_PATH", PAPER_DIR / "strict_result.json"))
+# Allow an explicit result JSON via RES_PATH; otherwise use the latest archived strict result.
+default_result = None
+strict_results = sorted(RESULTS_DIR.glob("exp_strict_*.json"), reverse=True)
+if strict_results:
+    default_result = strict_results[0]
+RESULT_PATH = Path(os.environ.get("RES_PATH", default_result if default_result else ""))
 
-if not RESULT_PATH.exists():
+if not RESULT_PATH or not RESULT_PATH.exists():
     raise FileNotFoundError(f"Result file not found: {RESULT_PATH}")
 
 print(f"Loading results from: {RESULT_PATH}")
@@ -38,7 +42,7 @@ for k in MODEL_KEYS:
     assert k in models_data, f"Model {k} missing from results JSON."
 
 def save_fig(fig, base_name):
-    """同时导出 PNG (供正文引用) 和 PDF (供归档)"""
+    """Export PNG and PDF figures inside the public reproducibility repo."""
     png_path = FIG_DIR / f"{base_name}.png"
     pdf_path = FIG_DIR / f"{base_name}.pdf"
     fig.savefig(png_path, bbox_inches='tight', dpi=300)
@@ -64,7 +68,7 @@ plt.xticks(x, MODEL_LABELS)
 plt.ylabel('Decision Margin')
 plt.title('Decision Margins across Models on COCO')
 plt.tight_layout()
-save_fig(fig2, "Figure_2")
+save_fig(fig2, "figure_2_decision_margins")
 plt.close(fig2)
 
 # ---------------------------------------------------------
@@ -105,11 +109,11 @@ def plot_spectrum(metric_key, ylabel, title_prefix, base_name):
 # ---------------------------------------------------------
 # Figure 3: Decision-axis displacement (DNC along-axis)
 # ---------------------------------------------------------
-plot_spectrum("dnc_along_mean", "Along-axis Displacement", "Decision-axis Displacement", "Figure_3")
+plot_spectrum("dnc_along_mean", "Along-axis Displacement", "Decision-axis Displacement", "figure_3_dnc")
 
 # ---------------------------------------------------------
 # Figure 4: Overall feature drift (Cosine Shift)
 # ---------------------------------------------------------
-plot_spectrum("cos_dist_mean", "Cosine Shift", "Overall Feature Drift", "Figure_4")
+plot_spectrum("cos_dist_mean", "Cosine Shift", "Overall Feature Drift", "figure_4_cosine_shift")
 
 print("All figures generated successfully!")

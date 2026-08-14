@@ -11,9 +11,9 @@ This repository contains the code and frozen result files for the reproducibilit
 - `experiments/exp_cross_dataset.py`
   Supplementary ADE20K cross-dataset noise check.
 - `experiments/update_tables.py`
-  Table refresh script.
+  Summary export script for archived result files.
 - `plot_figures.py`
-  Figure refresh script.
+  Figure regeneration script from archived strict-protocol results.
 - `results/exp_strict_20260623_000811.json`
   Archived strict-protocol output.
 - `results/exp_ade20k_20260623_085332.json`
@@ -45,8 +45,8 @@ Set dataset paths before running the experiments.
 ```powershell
 $env:DATASET_COCO_PATH='path/to/COCO/train2017'
 $env:COCO_ANN_PATH='path/to/COCO/annotations/instances_train2017.json'
-$env:DATASET_ADE20K_PATH='path/to/ADE20K/images/training'
-$env:ADE20K_SCENE_FILE='path/to/ADE20K/sceneCategories.txt'
+$env:DATASET_ADE20K_PATH='path/to/ADE20K/ADEChallengeData2016/images/training'
+$env:ADE20K_SCENE_FILE='path/to/ADE20K/ADEChallengeData2016/sceneCategories.txt'
 ```
 
 The strict-protocol script automatically infers:
@@ -80,12 +80,14 @@ This produces:
 results/exp_ade20k_YYYYMMDD_HHMMSS.json
 ```
 
-## Refresh figures and tables
+## Regenerate figures and summaries
 
 ```powershell
 .\.venv\Scripts\python.exe .\plot_figures.py
 .\.venv\Scripts\python.exe .\experiments\update_tables.py
 ```
+
+This produces figures under `figures/` and summary files under `outputs/`.
 
 ## Reproducibility notes
 
