@@ -19,14 +19,9 @@ This repository contains the code and frozen result files for the reproducibilit
 - `results/exp_ade20k_20260623_085332.json`
   Archived ADE20K supplementary output.
 
-## What is not included
+## Data access
 
-- Raw COCO or ADE20K images
-- Manuscript source files
-- Submission-only files such as cover letters or title pages
-- Private local paths
-
-The raw datasets are not redistributed. They must be obtained from the official sources:
+The raw datasets are not redistributed in this repository. They must be obtained from the official sources:
 
 - COCO 2017: https://cocodataset.org
 - ADE20K: https://groups.csail.mit.edu/vision/datasets/ADE20K
