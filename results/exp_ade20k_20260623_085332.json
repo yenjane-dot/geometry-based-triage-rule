@@ -1,0 +1,144 @@
+{
+  "model": "dinov2",
+  "dataset": "ADE20K",
+  "train_size": 1106,
+  "test_size": 255,
+  "train_classes": 71,
+  "test_classes": 24,
+  "clean_margin_mean": 0.11827627569437027,
+  "clean_margin_neg_pct": 0.2823529411764706,
+  "clean_probe_acc": 0.7176470588235294,
+  "perturbations": {
+    "noise": {
+      "param": "sigma",
+      "values": [
+        {
+          "sigma": 0.02,
+          "across_seed": {
+            "cos_dist_mean": 0.011157252825796604,
+            "cka_mean": 0.9963496327400208,
+            "svcca_mean": 0.9946635365486145,
+            "dnc_along_mean": 0.008308070711791515,
+            "margin_drop_mean": -5.6393444538116455e-05,
+            "probe_acc_drop_mean": 0.01568627543747425
+          },
+          "per_seed": [
+            {
+              "seed": 0,
+              "cos_dist_mean": 0.011157252825796604,
+              "cka": 0.9963496620230075,
+              "svcca": 0.9946635270607056,
+              "dnc_along_mean": 0.008308070711791515,
+              "margin_mean": 0.11833266913890839,
+              "margin_drop_mean": -5.6393444538116455e-05,
+              "probe_acc": 0.7019607843137254,
+              "probe_acc_drop": 0.015686274509803977
+            }
+          ]
+        },
+        {
+          "sigma": 0.05,
+          "across_seed": {
+            "cos_dist_mean": 0.0326397642493248,
+            "cka_mean": 0.9882229566574097,
+            "svcca_mean": 0.9843056797981262,
+            "dnc_along_mean": 0.01697511039674282,
+            "margin_drop_mean": 0.0007438138127326965,
+            "probe_acc_drop_mean": 0.01568627543747425
+          },
+          "per_seed": [
+            {
+              "seed": 0,
+              "cos_dist_mean": 0.0326397642493248,
+              "cka": 0.9882229272672564,
+              "svcca": 0.9843056527136982,
+              "dnc_along_mean": 0.01697511039674282,
+              "margin_mean": 0.11753246188163757,
+              "margin_drop_mean": 0.0007438138127326965,
+              "probe_acc": 0.7019607843137254,
+              "probe_acc_drop": 0.015686274509803977
+            }
+          ]
+        },
+        {
+          "sigma": 0.1,
+          "across_seed": {
+            "cos_dist_mean": 0.07453282922506332,
+            "cka_mean": 0.9705216288566589,
+            "svcca_mean": 0.9607916474342346,
+            "dnc_along_mean": 0.02894517406821251,
+            "margin_drop_mean": 0.0034451931715011597,
+            "probe_acc_drop_mean": 0.003921568859368563
+          },
+          "per_seed": [
+            {
+              "seed": 0,
+              "cos_dist_mean": 0.07453282922506332,
+              "cka": 0.9705215996023258,
+              "svcca": 0.9607916618357926,
+              "dnc_along_mean": 0.02894517406821251,
+              "margin_mean": 0.11483108252286911,
+              "margin_drop_mean": 0.0034451931715011597,
+              "probe_acc": 0.7137254901960784,
+              "probe_acc_drop": 0.0039215686274509665
+            }
+          ]
+        },
+        {
+          "sigma": 0.2,
+          "across_seed": {
+            "cos_dist_mean": 0.17858055233955383,
+            "cka_mean": 0.925950288772583,
+            "svcca_mean": 0.909465491771698,
+            "dnc_along_mean": 0.05101767182350159,
+            "margin_drop_mean": 0.02035694569349289,
+            "probe_acc_drop_mean": 0.0117647061124444
+          },
+          "per_seed": [
+            {
+              "seed": 0,
+              "cos_dist_mean": 0.17858055233955383,
+              "cka": 0.925950271060821,
+              "svcca": 0.9094655055227419,
+              "dnc_along_mean": 0.05101767182350159,
+              "margin_mean": 0.09791933000087738,
+              "margin_drop_mean": 0.02035694569349289,
+              "probe_acc": 0.7058823529411765,
+              "probe_acc_drop": 0.0117647058823529
+            }
+          ]
+        },
+        {
+          "sigma": 0.4,
+          "across_seed": {
+            "cos_dist_mean": 0.4666665196418762,
+            "cka_mean": 0.5786526203155518,
+            "svcca_mean": 0.705562174320221,
+            "dnc_along_mean": 0.12507747113704681,
+            "margin_drop_mean": 0.08766044676303864,
+            "probe_acc_drop_mean": 0.18039216101169586
+          },
+          "per_seed": [
+            {
+              "seed": 0,
+              "cos_dist_mean": 0.4666665196418762,
+              "cka": 0.5786526192149195,
+              "svcca": 0.7055621782070159,
+              "dnc_along_mean": 0.12507747113704681,
+              "margin_mean": 0.030615828931331635,
+              "margin_drop_mean": 0.08766044676303864,
+              "probe_acc": 0.5372549019607843,
+              "probe_acc_drop": 0.18039215686274512
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "diagnostic_validation": {
+    "cka_vs_probe_drop_corr": -0.9829396973336362,
+    "svcca_vs_probe_drop_corr": -0.9531729692051971,
+    "cos_vs_probe_drop_corr": 0.9295632271605123,
+    "dnc_vs_probe_drop_corr": 0.9290644920687763
+  }
+}
