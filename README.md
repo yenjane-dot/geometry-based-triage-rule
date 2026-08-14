@@ -12,8 +12,14 @@ This repository contains the code and frozen result files for the reproducibilit
   Supplementary ADE20K cross-dataset noise check.
 - `experiments/update_tables.py`
   Summary export script for archived result files.
+- `experiments/run_smoke_test.py`
+  Lightweight smoke test on fixed sample lists.
 - `plot_figures.py`
   Figure regeneration script from archived strict-protocol results.
+- `samples/`
+  Fixed COCO and ADE20K sample manifests for quick environment checks.
+- `run_smoke_test.ps1`
+  One-command PowerShell entry for the smoke test.
 - `results/exp_strict_20260623_000811.json`
   Archived strict-protocol output.
 - `results/exp_ade20k_20260623_085332.json`
@@ -53,6 +59,34 @@ The strict-protocol script automatically infers:
 
 - COCO validation images from the sibling `val2017` directory
 - COCO validation annotations from the sibling `instances_val2017.json` file
+
+## Quick smoke test
+
+The repository includes fixed sample manifests for a lightweight integration check:
+
+- `samples/coco_train_ids.txt`: 5 COCO `train2017` images
+- `samples/coco_val_ids.txt`: 5 COCO `val2017` images
+- `samples/ade20k_training_files.txt`: 10 ADE20K training images
+
+Run the smoke test:
+
+```powershell
+.\run_smoke_test.ps1
+```
+
+Or directly:
+
+```powershell
+.\.venv\Scripts\python.exe .\experiments\run_smoke_test.py --model dinov2 --batch_size 4
+```
+
+This produces:
+
+```text
+outputs/smoke_test_summary.json
+```
+
+The smoke test verifies dataset path resolution, model loading, and feature extraction. It is not a substitute for the full experiment.
 
 ## Main reproduction
 
