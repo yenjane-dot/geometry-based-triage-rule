@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -24,13 +25,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from config import (
-    RESULTS_DIR,
-    RANDOM_SEED,
-    get_dataset_path,
-    get_ade20k_scene_file,
-    set_random_seed,
-)  # noqa: E402
+from config import RESULTS_DIR, RANDOM_SEED, set_random_seed  # noqa: E402
 
 # Re-use core functions from the strict-protocol script (no copy-paste)
 from exp_strict_protocol import (  # type: ignore[import-not-top]
@@ -46,8 +41,26 @@ from exp_strict_protocol import (  # type: ignore[import-not-top]
 # ADE20K helpers
 # ---------------------------------------------------------------------------
 
-ADE_IMG_DIR = get_dataset_path("ADE20K")
-ADE_SCENE_FILE = get_ade20k_scene_file()
+
+def get_ade20k_root() -> Path:
+    env_path = os.environ.get("ADE20K_ROOT")
+    if env_path:
+        return Path(env_path)
+
+    training_dir = os.environ.get("DATASET_ADE20K_PATH")
+    if training_dir:
+        p = Path(training_dir)
+        try:
+            return p.parents[1]
+        except IndexError:
+            return p
+
+    return Path("path/to/ADE20K/ADEChallengeData2016")
+
+
+ADE20K_ROOT = get_ade20k_root()
+ADE_IMG_DIR = Path(os.environ.get("DATASET_ADE20K_PATH", str(ADE20K_ROOT / "images" / "training")))
+ADE_SCENE_FILE = Path(os.environ.get("ADE20K_SCENE_FILE", str(ADE20K_ROOT / "sceneCategories.txt")))
 
 
 def parse_scene_categories(path: Path) -> Dict[str, str]:
